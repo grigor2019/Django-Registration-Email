@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block stylesheet %}
+    <style>
+        .col-md-6 {
+            padding: 7px;
+        }
+    </style>
+
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="card card-register mx-auto mt-5">
+            <div class="card-header">
+            	Sign UP
+            </div>
+            <div class="card-body">
+                <form method="post" action=".">
+                    <div class="text-center">
+                        <div class="col-md-12" id="sign">
+                            {% csrf_token %}
+                            {% include 'includes/bs4_form.html' with form=form %}
+                            {{ user_form.as_p }}
+                            {{ profile_form.as_p }}
+                            
+                            <button class="btn btn-primary btn-block">
+                                Sign UP
+                            </button>
+                            
+                            <div class="col-md-12">
+                                <a class="d-block small mt-3" href="/login">Login Page</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="text-center" id="terms">
+                    <div class="col-md-12">
+                        <div class="jumbotron">
+                            <h1>Terms</h1>
+                            <p>Your email should be verified.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <a class="btn btn-warning" id="disagree">No</a>
+                        <a class="btn btn-success" id="agree">Yes</a>
+                    </div>
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script type="text/javascript">
+        $("#sign").hide();
+		
+		$("#agree").click(function(){
+            $("#sign").show();
+            $("#terms").hide();
+		});
+
+		$("#disagree").click(function(){
+            $("#disagree").attr('href', '/login');
+		});
+
+        $("#id_username").attr("placeholder", "Enter Email address");
+        $("#id_password").attr("placeholder", "Enter Password");
+    </script>
+{% endblock %}
